@@ -174,4 +174,4 @@ cython_debug/
 .pypirc
 
 # Catboost stuff
-.catboost_info
+notebook/catboost_info
