@@ -175,3 +175,5 @@ cython_debug/
 
 # Catboost stuff
 notebook/catboost_info
+
+.artifacts
