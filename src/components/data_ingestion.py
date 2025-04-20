@@ -6,6 +6,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass # to create classes with default values
 from src.components.data_transformation import DataTransformationConfig, DataTransformation
+from src.components.model_trainer import ModelTrainerConfig, ModelTrainer
+from src.utils import save_object
 
 
 @dataclass
@@ -49,8 +51,13 @@ class DataIngestion:
             raise CustomException(e, sys)
         
 if __name__ == "__main__":
+    # python -m src.components.data_ingestion to run this file as a module
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
 
     data_trainsformation = DataTransformation()
-    data_trainsformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr,_ = data_trainsformation.initiate_data_transformation(train_data, test_data)
+
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_arr, test_arr))
+
