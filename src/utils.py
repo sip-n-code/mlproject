@@ -7,6 +7,7 @@ import pickle
 from src.exception import CustomException
 from sklearn.metrics import (accuracy_score, f1_score, mean_absolute_error, mean_squared_error, r2_score)
 from sklearn.model_selection import GridSearchCV
+from src.logger import logging
 
 
 
@@ -27,18 +28,23 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, params):
     """
     Evaluate the model using different metrics.
     """
+    import time
+
+    time_start = time.time()
     
     try:
         report = {}
         for i in range(len(list(models))):
             model = list(models.values())[i]
+            model_name = list(models.keys())[i]
             param=params[list(models.keys())[i]] ######################
 
+            logging.info(f"Beginning Grid Search for {model_name}")
             gs = GridSearchCV(model,param,cv=3)
             gs.fit(X_train,y_train)
-
             model.set_params(**gs.best_params_)
             model.fit(X_train, y_train)
+            logging.info(f"Grid Search completed for {model_name}")
 
             #model.fit(X_train, y_train)
 
@@ -51,7 +57,11 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, params):
 
             report[list(models.keys())[i]] = test_model_score
             
-                
+        time_end = time.time()
+        time_taken = time_end - time_start
+        logging.info(f"Time taken for model evaluation: {time_taken} seconds")
+        print(f"Time taken for model evaluation: {time_taken} seconds")
+        logging.info(f"Model evaluation completed")        
         return report
     
     except Exception as e:
