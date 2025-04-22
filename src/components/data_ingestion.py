@@ -25,6 +25,8 @@ class DataIngestion:
         try:
             # Read the dataset
             df = pd.read_csv('notebook/data/StudentsPerformance.csv')
+            df.columns = [col.replace(" ", "_").replace("/", "_") for col in df.columns]
+            print(df.columns)
             logging.info("Dataset read as pandas dataframe")
 
             # Create the directory for artifacts if it doesn't exist
