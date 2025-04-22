@@ -35,8 +35,8 @@ class DataTransformation:
         """
         
         try:
-            numerical_features = ['writing score', 'reading score']
-            categorical_features = ["gender", "race/ethnicity", "parental level of education", "lunch", "test preparation course"]  
+            numerical_features = ['writing_score', 'reading_score']
+            categorical_features = ["gender", "race_ethnicity", "parental_level_of_education", "lunch", "test_preparation_course"]  
 
 
             num_pipeline = Pipeline(steps=[
@@ -79,11 +79,11 @@ class DataTransformation:
             logging.info("Read train and test data completed")
 
             # Separate features and target variable from training and testing data
-            input_feature_train_df = train_df.drop(columns=['math score'])
-            target_feature_train_df = train_df['math score']
+            input_feature_train_df = train_df.drop(columns=['math_score'])
+            target_feature_train_df = train_df['math_score']
 
-            input_feature_test_df = test_df.drop(columns=['math score'])
-            target_feature_test_df = test_df['math score']
+            input_feature_test_df = test_df.drop(columns=['math_score'])
+            target_feature_test_df = test_df['math_score']
 
             logging.info("Separated features and target variable completed")
 
